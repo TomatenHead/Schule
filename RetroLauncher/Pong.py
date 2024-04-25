@@ -28,7 +28,8 @@ if game == "pong":
     freeze_x = 0
     freeze_y = 0
     freeze = False
-    
+    pause = False
+    end = False
     def draw():
         screen.clear()
         screen.draw.filled_rect(Rect((100,ai_y),(10,100)),(255,255,255))
@@ -40,9 +41,13 @@ if game == "pong":
         screen.draw.textbox("zu", Rect((WIDTH/2-50,30),(50,50)))
         screen.draw.line((WIDTH/2-25,80), (WIDTH/2-25,HEIGHT), (255,255,255))
         screen.draw.line((WIDTH/2-25,0), (WIDTH/2-25,30), (255,255,255))
+        if pause == True:
+            screen.draw.filled_rect(Rect((WIDTH/2 -100,HEIGHT/2-75),(50,200)),(255,255,255))
+            screen.draw.filled_rect(Rect((WIDTH/2 +25,HEIGHT/2-75),(50,200)),(255,255,255))
+            
         
     def update():
-        global ball_x, score_ai,score_player, ball_y, player_y, ai_y, dy , dx, freeze_x , freeze_y, freeze
+        global ball_x, score_ai,score_player, ball_y, player_y, ai_y, dy , dx, freeze_x , freeze_y, freeze, dxalt , dyalt, end
         if ball_x >= WIDTH:
             score_ai += 1
             ball_x = 500
@@ -89,7 +94,7 @@ if game == "pong":
             freeze = True
         
         dx += dx*0.001
-        if not freeze:
+        if not freeze and not pause:
             if random.randint(1,300) == 1:
                 freeze_x = WIDTH/2
                 freeze_y = HEIGHT/2
@@ -98,15 +103,35 @@ if game == "pong":
             else:
                 freeze_x = 1500
                 freeze_y = 1500
-        
+        if dy != 0 and dx != 0:
+                dyalt = dy
+                dxalt = dx
+        if pause:
+            dy = 0
+            dx = 0
+        else:
+            dy = dyalt
+            dx = dxalt
+        if end == True:
+            print("game = Pong")
+            file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
+            os.system(f"python {file}")
+            exit()
     
     def on_key_down(key):
-        global W_pressed, S_pressed
+        global W_pressed, S_pressed, pause, end
         if key == key.S:
             W_pressed = True 
         elif key == key.W:
             S_pressed = True
-            
+        if key == key.K_1:
+            if pause == False:
+                pause = True
+            else:
+                pause = False
+        if key == key.K_2:
+            end = True
+                
     def on_key_up(key):
         global W_pressed, S_pressed
         if key == key.S:

@@ -15,7 +15,7 @@ def update():
     
 def on_key_down(key):
     if key == key.K_1:
-        print("game = Brick")
+        print("game = Pong")
         file = "//GY100040/Yanise/Desktop/RetroLauncher/Pong.py"
         os.system(f"python {file}")
         quit()
