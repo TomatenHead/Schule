@@ -2,6 +2,7 @@ import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '250,100'
 import pgzrun
 import random
+import time
 game = "brickbreaker"
 if game == "brickbreaker":
     WIDTH = 600
@@ -80,6 +81,9 @@ if game == "brickbreaker":
         if bloecke_existieren == False:
             dy = 0
             dx = 0
+            time.sleep(3)
+            #os.system("python main.py")
+            #quit()
         
         dy += dy*0.0005
         
