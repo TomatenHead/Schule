@@ -1,33 +1,36 @@
 import os
-os.environ['SDL_VIDEO_WINDOW_POS'] = '250,100'
+import sys
+os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
-from random import randint
+import random
+import pygame
 
-WIDTH = 600
-HEIGHT = 600
+def get_screen_dimensions():
+    pygame.init()
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    width, height = pygame.display.get_surface().get_size()
+    pygame.quit()
+    return width, height
 
+width, height = get_screen_dimensions()
+
+WIDTH = width-65
+HEIGHT = height-110
+pygame.font.init()
 def draw():
     screen.clear()
-    screen.draw.textbox("press 1 to play Pong,", Rect((300,200),(200,100)))
-    screen.draw.textbox("press 2 to play Brickbreaker", Rect((300,300),(200,100)))
-def update():
-    print(1)
-    
+    screen.draw.textbox("Press 1 to play Pong", Rect((WIDTH/2 - 100, HEIGHT/2 - 50), (200, 100)), color="white")
+    screen.draw.textbox("Press 2 to play Brickbreaker", Rect((WIDTH/2 - 100, HEIGHT/2 + 50), (200, 100)), color="white")
+
+
 def on_key_down(key):
-    if key == key.K_1:
+    if key == keys.K_1:
         print("game = Pong")
-        file = "//GY100040/Yanise/Desktop/RetroLauncher/Pong.py"
-        os.system(f"python {file}")
+        os.system("python Pong.py")
         quit()
-    if key == key.K_2:
-        print("game = Brick")
-        file = "//GY100040/Yanise/Desktop/RetroLauncher/BreakingBricks.py"
-        os.system(f"python {file}")
+    if key == keys.K_2:
+        print("game = Brickbreaker")
+        os.system("python BreakingBricks.py")
         quit()
-def on_key_up(key):
-    pass
-    
 
 pgzrun.go()
-    
-
