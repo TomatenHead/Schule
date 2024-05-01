@@ -1,21 +1,32 @@
 import os
-os.environ['SDL_VIDEO_WINDOW_POS'] = '250,100'
+os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
 import random
+from time import time
 import time
-game = "brickbreaker"
-if game == "brickbreaker":
-    WIDTH = 600
-    HEIGHT = 700
+
+game = "pong"
+if game == "pong":
+    WIDTH = 1535
+    HEIGHT = 790
     
-    player_x = 100
+    player_y = 100
+    ai_y = 500
+    
     ball_y = 200
     ball_x = 500
     
     dy = 2
     dx = 2
     
-    bloecke = [[(40, 100), (190, 100)], [(40, 150), (190, 150)], [(320, 150), (320, 100)], [(440, 150), (440, 100)]]
+    player_x = WIDTH/2
+    ball_y = 200
+    ball_x = 500
+    
+    dy = 2
+    dx = 2
+    
+    bloecke = [[(40, 100), (190, 100)], [(40, 150), (190, 150)], [(320, 150), (320, 100)], [(440, 150), (440, 100)],[(560, 150), (560, 100)],[(680, 150), (680, 100)],[(800, 150), (800, 100)],[(920, 150), (920, 100)],[(1040, 150), (1040, 100)],[(1160, 150), (1160, 100)],[(1280, 150), (1280, 100)],[(1400, 150), (1400, 100)]]
     A_pressed = False
     D_pressed = False
 
@@ -31,7 +42,7 @@ if game == "brickbreaker":
                 screen.draw.filled_rect(Rect(block, (100, 30)), (255, 255, 255))
         
     def update():
-        global ball_x,score, ball_y, player_x, dy , dx
+        global HEIGHT, WIDTH, ball_x,score, ball_y, player_x, dy , dx,score
         
         if ball_y >= HEIGHT:
             ball_x = WIDTH/2
@@ -40,11 +51,13 @@ if game == "brickbreaker":
             dx = 0
             player_x = WIDTH/2
             time.sleep(1)
+            score -= 2
+            
         
         if A_pressed == True:
-            player_x -= abs(dy*3/2)
+            player_x -= abs(dy*2)
         if D_pressed == True:
-            player_x += abs(dy*3/2)
+            player_x += abs(dy*2)
         
         if player_x >= WIDTH-100:
             player_x = WIDTH-100
@@ -57,7 +70,8 @@ if game == "brickbreaker":
         ball_x += dx
         
         if ball_y < 0:
-            dy = -dy
+            dy = abs(dy)
+            dx = random.randint(-4, 4)
         if ball_x >= WIDTH - 20 or ball_x < 0:
             dx = -dx
         if abs(ball_y - 590) <= 5 and abs(ball_x - player_x ) <= 85:
@@ -81,10 +95,12 @@ if game == "brickbreaker":
         if bloecke_existieren == False:
             dy = 0
             dx = 0
-            time.sleep(3)
-            #os.system("python main.py")
-            #quit()
-        
+            time.sleep(2)
+            print("game = Pong")
+            file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
+            os.system(f"python {file}")
+            WIDTH = 1
+            HEIGHT = 1
         dy += dy*0.0005
         
         
