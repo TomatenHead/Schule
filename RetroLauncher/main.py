@@ -1,6 +1,3 @@
-Here's the complete code with the modified `draw_pixelated_text()` function:
-
-```python
 import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
