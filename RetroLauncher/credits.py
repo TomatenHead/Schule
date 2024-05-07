@@ -2,8 +2,8 @@ import os
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
 
-WIDTH = 1535
-HEIGHT = 790
+WIDTH = 1550
+HEIGHT = 800
 
 # credits
 credits_list = [
