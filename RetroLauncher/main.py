@@ -1,6 +1,9 @@
 import os
+import sys
 os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
+import random
+import pygame
 from random import randint
 
 # Define box color and border size
@@ -32,117 +35,85 @@ random_index = randint(0, len(message) - 1)
 alternator = 0
 alternating_speed = 1
 
-FONT_WIDTH = 8  # Width of each character in pixels
-
-def draw_pixelated_text(text, position, color="white"):
-    x, y = position
-    for char in text:
-        if char == " ":
-            x += FONT_WIDTH  # Move cursor for space
-            continue
-        for i in range(len(MINECRAFT_FONT[char])):
-            row = MINECRAFT_FONT[char][i]
-            for j in range(len(row)):
-                pixel = row[j]
-                if pixel:  # Draw only if the pixel is 1
-                    screen.draw.filled_rect(Rect((x + j*2, y + i*2), (2, 2)), color)
-        x += FONT_WIDTH + 2  # Move cursor for next character
-
-MINECRAFT_FONT = {
-    "R": [
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 1, 0],
-        [1, 1, 1, 1, 0],
-        [1, 0, 1, 0, 1],
-        [1, 0, 0, 1, 0],
-    ],
-    "e": [
-        [0, 1, 1, 1, 0],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0],
-        [0, 1, 1, 1, 0],
-    ],
-    "t": [
-        [1, 1, 1],
-        [0, 1, 0],
-        [0, 1, 0],
-        [0, 1, 0],
-        [0, 1, 0],
-    ],
-    "r": [
-        [1, 1, 1],
-        [1, 0, 0],
-        [1, 1, 0],
-        [1, 0, 1],
-        [1, 0, 1],
-    ],
-    "o": [
-        [0, 1, 1, 1, 0],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [1, 0, 0, 0, 1],
-        [0, 1, 1, 1, 0],
-    ],
-}
-
+pygame.font.init()
 def draw():
-    global alternator, alternating_speed 
+    global alternator,alternating_speed 
     screen.clear()
+    screen.draw.textbox("Press 1 to play Pong", Rect((WIDTH/2 - 100, HEIGHT/2 - 50), (200, 100)), color="white")
+    screen.draw.textbox("Press 2 to play Brickbreaker", Rect((WIDTH/2 - 100, HEIGHT/2 + 50), (200, 100)), color="white")
     screen.fill((50,50,50))
-    
+
     # Main text
-    draw_pixelated_text("RetroLauncher", (WIDTH/2, 100), color="white")
+    screen.draw.text("RetroLauncher", midtop=(WIDTH/2, 100), color="white", fontsize=160)
     message_length = len(message[random_index])
     if message_length > 20:
-        draw_pixelated_text(message[random_index], (WIDTH/2+350, 180), color=(194, 218, 180))
+        screen.draw.text(message[random_index], midtop=(WIDTH/2+350, 180), color=(194, 218, 180), fontsize=80+alternator, angle=20)
     else:
-        draw_pixelated_text(message[random_index], (WIDTH/2+350, 180), color=(194, 218, 180))
-    
-    # Buttons (unchanged)
+        screen.draw.text(message[random_index], midtop=(WIDTH/2+350, 180), color=(194, 218, 180), fontsize=100, angle=20)
+
+    # Buttons
     button_close_x = WIDTH/2 - 450
     button_close_y = HEIGHT - 100
     screen.draw.filled_rect(Rect((button_close_x, button_close_y), (200, 100)), BOX_COLOR)
     screen.draw.rect(Rect((button_close_x, button_close_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("Close Game", Rect((button_close_x, button_close_y), (200, 100)), color=BORDER_COLOR)
-    
+
     button_credits_x = WIDTH/2 + 250
     button_credits_y = HEIGHT - 100
     screen.draw.filled_rect(Rect((button_credits_x, button_credits_y), (200, 100)), BOX_COLOR)
     screen.draw.rect(Rect((button_credits_x, button_credits_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("Credits", Rect((button_credits_x, button_credits_y), (200, 100)), color=BORDER_COLOR)
-    
+
     button_game1_x = WIDTH/2 - 450
     button_game1_y = HEIGHT/2 - 50
     screen.draw.filled_rect(Rect((button_game1_x, button_game1_y), (200, 100)), BOX_COLOR)
     screen.draw.rect(Rect((button_game1_x, button_game1_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("BrickBreaker", Rect((button_game1_x, button_game1_y), (200, 100)), color=BORDER_COLOR)
-    
+
     button_game2_x = WIDTH/2 + 250
     button_game2_y = HEIGHT/2 - 50
     screen.draw.filled_rect(Rect((button_game2_x, button_game2_y), (200, 100)), BOX_COLOR)
     screen.draw.rect(Rect((button_game2_x, button_game2_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("Pong", Rect((button_game2_x, button_game2_y), (200, 100)), color=BORDER_COLOR)
-    
+
     button_game3_x = WIDTH/2 - 450
     button_game3_y = HEIGHT/2 + 150
     screen.draw.filled_rect(Rect((button_game3_x, button_game3_y), (200, 100)), BOX_COLOR)
     screen.draw.rect(Rect((button_game3_x, button_game3_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("Game 3", Rect((button_game3_x, button_game3_y), (200, 100)), color=BORDER_COLOR)
-    
+
     button_game4_x = WIDTH/2 + 250
     button_game4_y = HEIGHT/2 + 150
     screen.draw.filled_rect(Rect((button_game4_x, button_game4_y), (200, 100)), BOX_COLOR)
-    screen.draw.rect(Rect((button_game4_x, button_game4_y), (
-
-200, 100)), BORDER_COLOR)
+    screen.draw.rect(Rect((button_game4_x, button_game4_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("Game 4", Rect((button_game4_x, button_game4_y), (200, 100)), color=BORDER_COLOR)
 
+
+
+
+
+
+
 def update():
-    global alternator, alternating_speed
+    global alternator,alternating_speed
     if abs(alternator) >= 30:
         alternating_speed = -alternating_speed
     alternator += alternating_speed
+
+
+
+
+def on_key_down(key):
+    if key == keys.K_1:
+        print("game = Pong")
+        os.system("python Pong.py")
+        quit()
+    if key == keys.K_2:
+        print("game = Brickbreaker")
+        os.system("python BreakingBricks.py")
+        quit()
+
+
 
 def on_mouse_down(pos, button):
     if button == mouse.LEFT:
@@ -159,10 +130,12 @@ def on_mouse_down(pos, button):
         elif WIDTH/2 + 250 <= pos[0] <= WIDTH/2 + 450 and HEIGHT/2 + 150 <= pos[1] <= HEIGHT/2 + 250:
             play_game4()
 
+
+
 def close_game():
     print("Closing game...")
     quit()
-    
+
 def show_credits():
     print("Showing credits...")
     print("game = credits")
@@ -174,7 +147,7 @@ def show_credits():
         print(f"File not found: {file_path}. Playing alternative credits.py")
         os.system(f"python credits.py")
     quit()
-    
+
 def play_game1():
     print("Starting Game 1...")
     print("game = Brick")
@@ -222,4 +195,3 @@ def play_game4():
         os.system(f"python Dummy.py")
 
 pgzrun.go()
-```

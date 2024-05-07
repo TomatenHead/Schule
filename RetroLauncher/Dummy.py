@@ -1,7 +1,9 @@
+import os
+os.environ['SDL_VIDEO_WINDOW_POS'] = '0,25'
 import pgzrun
 
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1550
+HEIGHT = 800
 
 def draw():
     screen.clear()

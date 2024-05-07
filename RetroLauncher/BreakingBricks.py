@@ -7,8 +7,8 @@ import time
 
 game = "pong"
 if game == "pong":
-    WIDTH = 1535
-    HEIGHT = 790
+    WIDTH = 1550
+    HEIGHT = 800
     
     player_y = 100
     ai_y = 500
@@ -19,7 +19,7 @@ if game == "pong":
     dy = 2
     dx = 2
     
-    player_x = WIDTH/2
+    player_x = 100
     ball_y = 200
     ball_x = 500
     
@@ -42,7 +42,7 @@ if game == "pong":
                 screen.draw.filled_rect(Rect(block, (100, 30)), (255, 255, 255))
         
     def update():
-        global HEIGHT, WIDTH, ball_x,score, ball_y, player_x, dy , dx,score
+        global ball_x,score, ball_y, player_x, dy , dx,score
         
         if ball_y >= HEIGHT:
             ball_x = WIDTH/2
