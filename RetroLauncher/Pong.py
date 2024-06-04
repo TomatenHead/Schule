@@ -5,7 +5,8 @@ import random
 
 # Initialize Pygame
 pygame.init()
-
+ai_1 = True
+ai_2 = True
 # Set up the screen
 SCREEN_WIDTH = 1535
 SCREEN_HEIGHT = 800
@@ -52,19 +53,42 @@ while run:
         joystick = pygame.joystick.Joystick(0)
         joystick.init()
         player1_player.y += int(joystick.get_axis(1) * player_SPEED)
+        ai_1 = False
 
     # Move players with keyboard (for testing without joysticks)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         player2_player.y -= player_SPEED
+        ai_2 = False
     if keys[pygame.K_DOWN]:
         player2_player.y += player_SPEED
-
+        ai_2 = False
+    if keys[pygame.K_w]:
+        player1_player.y -= player_SPEED
+        ai_1 = False
+    if keys[pygame.K_s]:
+        player1_player.y += player_SPEED
+        ai_1 = False
     # Move the ball
     ball.x += ball_speed_x
     ball.y += ball_speed_y
-
-    # Ball collisions with walls
+    
+    
+    
+    if player1_player.y <= -10:
+        player1_player.y += player_SPEED
+        
+    if (player1_player.y+90) >= SCREEN_HEIGHT:
+        player1_player.y -= player_SPEED
+    
+    if player2_player.y <= -10:
+        player2_player.y += player_SPEED
+        
+    if (player2_player.y+90) >= SCREEN_HEIGHT:
+        player2_player.y -= player_SPEED
+    
+    
+    
     if ball.top <= 0 or ball.bottom >= SCREEN_HEIGHT:
         ball_speed_y *= -1
     if ball.left <= 0:
@@ -88,15 +112,41 @@ while run:
     if ball_speed_y >= 7:
         ball_speed_y = 7
         
-    #if player2_player.y>=0:
-    #    player2_player.y -= player_SPEED
-    #if player2_player.y<= SCREEN_HEIGHT + player_SIZE:
-    #    player2_player.y += player_SPEED
-    #if player1_player.y>=0:
-    #    player1_player.y -= player_SPEED
-    #if player1_player.y<=SCREEN_HEIGTH + player_SIZE:
-    #    player1_player.y += player_SPEED
-    # Draw everything
+    
+        
+    if ai_1 == True:
+        if player1_player.y >= ball.y:
+            player1_player.y -= player_SPEED
+        else:
+            player1_player.y += player_SPEED
+    if ai_2 == True:
+        if player2_player.y >= ball.y:
+            player2_player.y -= player_SPEED
+        else:
+            player2_player.y += player_SPEED
+         
+         
+    if score_player1 >= 10:
+        player1_score_text = font.render("Player one wins", True, WHITE)
+        time.sleep(5)
+         
+         
+    if score_player2 >= 10:
+        file_path = "//GY100040/Yanise/Desktop/RetroLauncher/credits.py"
+        try:
+            with open(file_path):
+                os.system(f"python {file_path}")
+        except FileNotFoundError:
+            print(f"File not found: {file_path}. Playing alternative credits.py")
+            os.system(f"python credits.py")
+        quit()
+         
+         
+         
+         
+         
+         
+    
     screen.fill(BLACK)
     pygame.draw.rect(screen, WHITE, player1_player)
     pygame.draw.rect(screen, WHITE, player2_player)

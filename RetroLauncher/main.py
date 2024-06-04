@@ -133,7 +133,6 @@ def on_mouse_down(pos, button):
 
 
 def close_game():
-    print("Closing game...")
     quit()
 
 def show_credits():
