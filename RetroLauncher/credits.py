@@ -53,12 +53,12 @@ def update():
         file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
         os.system(f"python {file}")
         os.system(f"python main.py")
-        quit()
+        os.close("//GY100040/Yanise/Desktop/RetroLauncher/credits.py")
 def on_mouse_down():
     file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
     os.system(f"python {file}")
     os.system(f"python main.py")
-    quit()
+    os.close("//GY100040/Yanise/Desktop/RetroLauncher/credits.py")
     
     
 def on_key_down(key):
@@ -66,6 +66,6 @@ def on_key_down(key):
         file = "//GY100040/Yanise/Desktop/RetroLauncher/Pong.py"
         os.system(f"python {file}")
         os.system(f"python main.py")
-        quit() 
+        os.close("//GY100040/Yanise/Desktop/RetroLauncher/credits.py") 
         
 pgzrun.go()
