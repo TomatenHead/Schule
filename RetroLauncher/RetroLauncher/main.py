@@ -74,7 +74,7 @@ def draw():
     button_game3_y = HEIGHT/2 + 150
     screen.draw.filled_rect(Rect((button_game3_x, button_game3_y), (200, 100)), BOX_COLOR)
     screen.draw.rect(Rect((button_game3_x, button_game3_y), (200, 100)), BORDER_COLOR)
-    screen.draw.textbox("Game 3", Rect((button_game3_x, button_game3_y), (200, 100)), color=BORDER_COLOR)
+    screen.draw.textbox("Snake", Rect((button_game3_x, button_game3_y), (200, 100)), color=BORDER_COLOR)
     
     button_game4_x = WIDTH/2 + 250
     button_game4_y = HEIGHT/2 + 150
