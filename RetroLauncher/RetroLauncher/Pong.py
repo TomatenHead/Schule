@@ -114,14 +114,17 @@ def update():
         dy = dyalt
         dx = dxalt
     if end == True:
-        print("game = Pong")
-        file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
-        os.system(f"python {file}")
-        WIDTH = 1
-        HEIGHT = 1
+        try:
+            with open(file_path):
+                os.system(f"python //GY100040/Yanise/Desktop/RetroLauncher/main.py")
+        except FileNotFoundError:
+            print(f"File not found: //GY100040/Yanise/Desktop/RetroLauncher/main.py. Playing alternative credits.py")
+            os.system(f"python credits.py")
 
 def on_key_down(key):
     global W_pressed, S_pressed, pause, end
+    if key == keys.ESCAPE:
+        os.system("taskkill /IM python.exe /F")
     if key == key.S:
         W_pressed = True
     elif key == key.W:

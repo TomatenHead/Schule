@@ -54,7 +54,13 @@ def update():
     new_head = (head_x, head_y)
 
     if new_head in snake or head_x < 0 or head_x >= WIDTH or head_y < 0 or head_y >= HEIGHT:
-        game_over = True
+        file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
+        try:
+            with open(file):
+                os.system(f"python {file}")
+        except FileNotFoundError:
+            print(f"File not found: //GY100040/Yanise/Desktop/RetroLauncher/main.py. Playing alternative credits.py")
+            os.system(f"python credits.py")
 
     snake.insert(0, new_head)
 
@@ -65,6 +71,8 @@ def update():
 
 def on_key_down(key):
     global direction
+    if key == keys.ESCAPE:
+        os.system("taskkill /IM python.exe /F")
 
     if (key == keys.RIGHT or key == keys.D) and direction != 'LEFT':
         direction = 'RIGHT'

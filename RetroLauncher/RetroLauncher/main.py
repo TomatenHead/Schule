@@ -6,7 +6,7 @@ from random import randint
 # Define box color and border size
 BOX_COLOR = "white"
 BORDER_COLOR = "black"
-BORDER_SIZE = 5
+BORDER_SIZE = 10
 
 WIDTH = 1535
 HEIGHT = 790
@@ -33,7 +33,7 @@ alternator = 0
 alternating_speed = 1
 
 def draw():
-    global alternator,alternating_speed 
+    global alternator, alternating_speed 
     screen.clear()
     screen.fill((50,50,50))
     
@@ -82,27 +82,15 @@ def draw():
     screen.draw.rect(Rect((button_game4_x, button_game4_y), (200, 100)), BORDER_COLOR)
     screen.draw.textbox("Game 4", Rect((button_game4_x, button_game4_y), (200, 100)), color=BORDER_COLOR)
 
-
-
-
-
-
-
 def update():
-    global alternator,alternating_speed
+    global alternator, alternating_speed
     if abs(alternator) >= 30:
         alternating_speed = -alternating_speed
     alternator += alternating_speed
 
-
-
-
-
-
-
 def on_mouse_down(pos, button):
     if button == mouse.LEFT:
-        if WIDTH/2 - 150 <= pos[0] <= WIDTH/2 + 50 and HEIGHT - 100 <= pos[1] <= HEIGHT:
+        if WIDTH/2 - 450 <= pos[0] <= WIDTH/2 - 250 and HEIGHT - 100 <= pos[1] <= HEIGHT:
             close_game()
         elif WIDTH/2 + 250 <= pos[0] <= WIDTH/2 + 450 and HEIGHT - 100 <= pos[1] <= HEIGHT:
             show_credits()
@@ -115,63 +103,53 @@ def on_mouse_down(pos, button):
         elif WIDTH/2 + 250 <= pos[0] <= WIDTH/2 + 450 and HEIGHT/2 + 150 <= pos[1] <= HEIGHT/2 + 250:
             play_game4()
 
-            
-            
 def close_game():
     print("Closing game...")
-    quit()
-    
+    os.system("taskkill /IM python.exe /F")
+
 def show_credits():
     print("Showing credits...")
-    print("game = credits")
-    file_path = "//GY100040/Yanise/Desktop/RetroLauncher/credits.py"
+    file_path = "/mnt/data/credits.py"
     try:
         with open(file_path):
             os.system(f"python {file_path}")
     except FileNotFoundError:
         print(f"File not found: {file_path}. Playing alternative credits.py")
         os.system(f"python credits.py")
-    quit()
-    
+
 def play_game1():
     print("Starting Game 1...")
-    print("game = Brick")
-    file_path = "//GY100040/Yanise/Desktop/RetroLauncher/BreakingBricks.py"
+    file_path = "/mnt/data/BreakingBricks.py"
     try:
         with open(file_path):
             os.system(f"python {file_path}")
     except FileNotFoundError:
-        print(f"File not found: {file_path}. Playing alternative Brickbreaker.py")
+        print(f"File not found: {file_path}. Playing alternative BreakingBricks.py")
         os.system(f"python BreakingBricks.py")
-    quit()
 
 def play_game2():
     print("Starting Game 2...")
-    print("game = Pong")
-    file_path = "//GY100040/Yanise/Desktop/RetroLauncher/Pong.py"
+    file_path = "/mnt/data/Pong.py"
     try:
         with open(file_path):
             os.system(f"python {file_path}")
     except FileNotFoundError:
         print(f"File not found: {file_path}. Playing alternative Pong.py")
         os.system(f"python Pong.py")
-    quit()
 
 def play_game3():
     print("Starting Game 3...")
-    print("game = Snake")
-    file_path = "//GY100040/Yanise/Desktop/RetroLauncher/Snake.py"
+    file_path = "/mnt/data/snake.py"
     try:
         with open(file_path):
             os.system(f"python {file_path}")
     except FileNotFoundError:
-        print(f"File not found: {file_path}. Playing alternative Snake.py")
-        os.system(f"python Snake.py")
+        print(f"File not found: {file_path}. Playing alternative snake.py")
+        os.system(f"python snake.py")
 
 def play_game4():
     print("Starting Game 4...")
-    print("game = Pong")
-    file_path = "//GY100040/Yanise/Desktop/RetroLauncher/Dummy.py"
+    file_path = "/mnt/data/Dummy.py"
     try:
         with open(file_path):
             os.system(f"python {file_path}")
@@ -180,6 +158,3 @@ def play_game4():
         os.system(f"python Dummy.py")
 
 pgzrun.go()
-
-
-

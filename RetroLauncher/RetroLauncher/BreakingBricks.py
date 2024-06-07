@@ -96,11 +96,12 @@ if game == "pong":
             dy = 0
             dx = 0
             time.sleep(2)
-            print("game = Pong")
-            file = "//GY100040/Yanise/Desktop/RetroLauncher/main.py"
-            os.system(f"python {file}")
-            WIDTH = 1
-            HEIGHT = 1
+            try:
+                with open(file_path):
+                    os.system(f"python //GY100040/Yanise/Desktop/RetroLauncher/main.py")
+            except FileNotFoundError:
+                print(f"File not found: //GY100040/Yanise/Desktop/RetroLauncher/main.py. Playing alternative credits.py")
+        os.system(f"python credits.py")
         dy += dy*0.0005
         
         
@@ -114,6 +115,8 @@ if game == "pong":
             
     def on_key_up(key):
         global A_pressed, D_pressed
+        if key == keys.ESCAPE:
+            os.system("taskkill /IM python.exe /F")
         if key == key.A:
             A_pressed = False  
         if key == key.D:
